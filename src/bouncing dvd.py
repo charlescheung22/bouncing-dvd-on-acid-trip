@@ -4,6 +4,9 @@ from math import cos, radians, pi
 import pygame
 
 
+DVD_LOGO_PATH = "..\\images\\DVD logo.png"
+
+
 class Point:
     x: Union[int, float]
     y: Union[int, float]
@@ -179,7 +182,7 @@ class Logo:
         self.height = self.sprite.get_height()
         self.position = position
         self.hitbox = Rectangle(self.position, self.width, self.height)
-        self.speed = 50.5
+        self.speed = 0.5
         self.direction_x = 1
         self.direction_y = 1
 
@@ -216,7 +219,7 @@ def main():
     surface_y = display_info.current_h
     main_surface = pygame.display.set_mode((surface_x, surface_y))
 
-    dvd_icon = Logo(".\DVD logo.png", Point(0, 0))
+    dvd_icon = Logo(DVD_LOGO_PATH, Point(0, 0))
     dvd_bound_x = surface_x - dvd_icon.width
     dvd_bound_y = surface_y - dvd_icon.height
     screen = Rectangle(Point(0, 0), surface_x, surface_y)
