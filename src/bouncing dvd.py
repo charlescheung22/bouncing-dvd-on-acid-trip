@@ -2,7 +2,7 @@ from math import cos, radians, pi
 import pygame
 
 # Constants
-FPS: int = 144
+FPS: int = 60
 DVD_LOGO_PATH: str = "../images/DVD logo.png"
 # Generate a list of RGB values for background color cycling.
 RGB_LIST: list[tuple[int, int, int]] = [(
@@ -17,18 +17,19 @@ class Logo:
         """
         Logo class constructor.
 
-        :parameter image_path: A string representing the path to the DVD logo from the current directory.
-        :parameter position: A tuple pair of coordinates, which will be converted to a vector.
+        :param image_path: A string representing the path to the DVD logo from the current directory.
+        :param position: A tuple pair of coordinates, which will be converted to a vector.
         """
         self.sprite = pygame.image.load(image_path)
         self.width = self.sprite.get_width()
         self.height = self.sprite.get_height()
         self.position = pygame.Vector2(position)
         self.direction = pygame.Vector2(1, 1)
+        self.speed = 2
 
     def update(self) -> None:
         """Update the current position with the current direction."""
-        self.position += self.direction
+        self.position += self.direction * self.speed
         # Collision detection will be handled in the main loop
 
     def draw(self, surface: pygame.Surface) -> None:
@@ -58,6 +59,8 @@ def handle_events() -> str:
 def main():
     pygame.init()
     curr_rgb = 0  # RGB index for background color cycling.
+
+    clock = pygame.time.Clock()
 
     flag_bounced: bool = False
 
@@ -97,6 +100,8 @@ def main():
 
         curr_rgb += 1 / 20
         curr_rgb %= 360
+
+        clock.tick(FPS)
 
     pygame.quit()
 
